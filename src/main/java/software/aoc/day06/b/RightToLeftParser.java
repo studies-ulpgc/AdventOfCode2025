@@ -11,39 +11,41 @@ public final class RightToLeftParser extends BaseParser
 
     @Override
     public Worksheet parse(String input) {
-        var raw = lines(input);
-        var padded = pad(raw, width(raw));
-        return new Worksheet(problems(padded));
+        return new Worksheet(problems(pad(lines(input), width(lines(input)))));
     }
 
     private List<Problem> problems(List<String> lines) {
-        var numbers = lines.subList(0, lines.size() - 1);
-        var ops = lines.get(lines.size() - 1);
+        return getList(getCol(lines), getNumbers(lines), getOps(lines), new ArrayList<Problem>());
+    }
 
-        var list = new ArrayList<Problem>();
-        int col = ops.length() - 1;
+    private static List<String> getNumbers(List<String> lines) {
+        return lines.subList(0, lines.size() - 1);
+    }
 
+    private static int getCol(List<String> lines) {
+        return getOps(lines).length() - 1;
+    }
+
+    private static String getOps(List<String> lines) {
+        return lines.get(lines.size() - 1);
+    }
+
+    private ArrayList<Problem> getList(int col, List<String> numbers, String ops, ArrayList<Problem> list) {
         while (col >= 0) {
             if (isSeparator(numbers, ops, col)) {
                 col--;
                 continue;
             }
 
-            int end = col;
-            int start = findStart(numbers, ops, end);
-
-            list.add(problem(numbers, ops, start, end));
-            col = start - 1;
+            list.add(problem(numbers, ops, findStart(numbers, ops, col), col));
+            col = findStart(numbers, ops, col) - 1;
         }
-
         return list;
     }
 
     private int findStart(List<String> nums, String ops, int end) {
         int c = end;
-        while (c >= 0 && !isSeparator(nums, ops, c)) {
-            c--;
-        }
+        while (c >= 0 && !isSeparator(nums, ops, c)) c--;
         return c + 1;
     }
 
@@ -58,13 +60,13 @@ public final class RightToLeftParser extends BaseParser
     }
 
     private List<Long> numbers(List<String> rows, int a, int b) {
-        var list = new ArrayList<Long>();
+        return getList(rows, a, b, new ArrayList<Long>());
+    }
 
+    private ArrayList<Long> getList(List<String> rows, int a, int b, ArrayList<Long> list) {
         for (int c = b; c >= a; c--) {
-            var n = columnNumber(rows, c);
-            if (!n.isEmpty()) {
-                list.add(Long.parseLong(n));
-            }
+            if (!columnNumber(rows, c).isEmpty())
+                list.add(Long.parseLong(columnNumber(rows, c)));
         }
         return list;
     }

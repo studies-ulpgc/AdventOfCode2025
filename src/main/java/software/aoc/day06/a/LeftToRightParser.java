@@ -11,9 +11,7 @@ public final class LeftToRightParser extends BaseParser
 
     @Override
     public Worksheet parse(String input) {
-        var raw = lines(input);
-        var padded = pad(raw, width(raw));
-        return new Worksheet(problems(padded));
+        return new Worksheet(problems(pad(lines(input), width(lines(input)))));
     }
 
     private List<Problem> problems(List<String> lines) {
@@ -22,9 +20,10 @@ public final class LeftToRightParser extends BaseParser
     }
 
     private List<Problem> extract(List<String> nums, String ops) {
-        var list = new ArrayList<Problem>();
-        int start = -1;
+        return getList(nums, ops, -1, new ArrayList<Problem>());
+    }
 
+    private ArrayList<Problem> getList(List<String> nums, String ops, int start, ArrayList<Problem> list) {
         for (int c = 0; c <= ops.length(); c++) {
             if (inside(nums, ops, c)) {
                 if (start < 0) start = c;
