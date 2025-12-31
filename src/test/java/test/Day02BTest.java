@@ -1,4 +1,62 @@
 package test;
 
+import org.junit.Test;
+import software.aoc.day02.GiftShopChecker;
+import software.aoc.day02.GiftShopFactory;
+import software.aoc.day02.IDRange;
+import software.aoc.day02.b.RepeatedAtLeastTwiceRule;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class Day02BTest {
+
+    private final RepeatedAtLeastTwiceRule rule =
+            new RepeatedAtLeastTwiceRule();
+
+    private final GiftShopChecker checker =
+            new GiftShopChecker(rule);
+
+    @Test
+    public void given_repeated_sequence_twice_should_be_invalid() {
+        assertThat(rule.isInvalid(123123)).isTrue();
+        assertThat(rule.isInvalid(1212)).isTrue();
+    }
+
+    @Test
+    public void given_repeated_sequence_multiple_times_should_be_invalid() {
+        assertThat(rule.isInvalid(1111111)).isTrue();
+        assertThat(rule.isInvalid(1212121212L)).isTrue();
+    }
+
+    @Test
+    public void given_non_repeated_digits_should_be_valid() {
+        assertThat(rule.isInvalid(101)).isFalse();
+        assertThat(rule.isInvalid(1234)).isFalse();
+    }
+
+    @Test
+    public void given_range_with_new_invalid_ids_should_sum_correctly() {
+        List<IDRange> ranges = List.of(new IDRange(95, 115));
+
+        long result = checker.sumInvalidIDs(ranges);
+
+        assertThat(result).isEqualTo(210); // 99 + 111
+    }
+
+    @Test
+    public void given_example_from_statement_should_return_expected_sum() {
+        String input =
+                "11-22,95-115,998-1012,1188511880-1188511890," +
+                        "222220-222224,1698522-1698528,446443-446449," +
+                        "38593856-38593862,565653-565659,824824821-824824827," +
+                        "2121212118-2121212124";
+
+        List<IDRange> ranges = GiftShopFactory.fromString(input);
+
+        long result = checker.sumInvalidIDs(ranges);
+
+        assertThat(result).isEqualTo(4174379265L);
+    }
 }
