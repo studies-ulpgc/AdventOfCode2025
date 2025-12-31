@@ -3,6 +3,7 @@ package software.aoc.day02.b;
 import software.aoc.day02.GiftShopChecker;
 import software.aoc.day02.IDRange;
 import software.aoc.day02.GiftShopFactory;
+import software.aoc.day02.a.RepeatedTwiceRule;
 import software.aoc.io.FileOrdersLoader;
 import software.aoc.io.OrdersLoader;
 
@@ -22,10 +23,23 @@ public final class Day02B {
                 )
         );
 
-        List<IDRange> ranges = GiftShopFactory.fromString(loader.read());
-        long result = new GiftShopChecker(new RepeatedAtLeastTwiceRule())
-                .sumInvalidIDs(ranges);
+        System.out.println(getResult(getRanges(getLoader(day))));
+    }
 
-        System.out.println(result);
+    private static OrdersLoader getLoader(String day) throws IOException {
+        return FileOrdersLoader.from(
+                Files.newInputStream(
+                        Path.of("src/test/resources/day" + day + "/orders.txt")
+                )
+        );
+    }
+
+    private static long getResult(List<IDRange> ranges) {
+        return new GiftShopChecker(new RepeatedAtLeastTwiceRule())
+                .sumInvalidIDs(ranges);
+    }
+
+    private static List<IDRange> getRanges(OrdersLoader loader) {
+        return GiftShopFactory.fromString(loader.read());
     }
 }

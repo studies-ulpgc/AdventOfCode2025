@@ -16,16 +16,23 @@ public final class Day02A {
     public static void main(String[] args) throws IOException {
         String day = "02-a";
 
-        OrdersLoader loader = FileOrdersLoader.from(
+        System.out.println(getResult(getRanges(getLoader(day))));
+    }
+
+    private static OrdersLoader getLoader(String day) throws IOException {
+        return FileOrdersLoader.from(
                 Files.newInputStream(
                         Path.of("src/test/resources/day" + day + "/orders.txt")
                 )
         );
+    }
 
-        List<IDRange> ranges = GiftShopFactory.fromString(loader.read());
-        long result = new GiftShopChecker(new RepeatedTwiceRule())
+    private static long getResult(List<IDRange> ranges) {
+        return new GiftShopChecker(new RepeatedTwiceRule())
                 .sumInvalidIDs(ranges);
+    }
 
-        System.out.println(result);
+    private static List<IDRange> getRanges(OrdersLoader loader) {
+        return GiftShopFactory.fromString(loader.read());
     }
 }

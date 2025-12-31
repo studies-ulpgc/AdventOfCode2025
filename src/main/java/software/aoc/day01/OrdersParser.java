@@ -16,8 +16,14 @@ public final class OrdersParser {
     }
 
     private static Order parseLine(String line) {
-        int sign = line.charAt(0) == 'L' ? -1 : 1;
-        int value = Integer.parseInt(line.substring(1));
-        return new Order(sign * value);
+        return new Order(getSign(line) * getParsedInt(line));
+    }
+
+    private static int getSign(String line) {
+        return line.charAt(0) == 'L' ? -1 : 1;
+    }
+
+    private static int getParsedInt(String line) {
+        return Integer.parseInt(line.substring(1));
     }
 }
