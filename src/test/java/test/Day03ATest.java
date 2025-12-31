@@ -1,8 +1,8 @@
 package test;
 
 import org.junit.Test;
+import software.aoc.day03.BatteryCells;
 import software.aoc.day03.BatteryBank;
-import software.aoc.day03.BatteryBanks;
 import software.aoc.day03.BankParser;
 import software.aoc.io.OrdersLoader;
 
@@ -15,7 +15,7 @@ public class Day03ATest {
 
     @Test
     public void given_single_bank_should_compute_max_joltage() {
-        BatteryBank bank = BankParser.parse("987654321111111");
+        BatteryCells bank = BankParser.parse("987654321111111");
         assertThat(bank.maxJoltage(2)).isEqualTo(98);
     }
 
@@ -28,7 +28,7 @@ public class Day03ATest {
                 "818181911112111"
         );
 
-        BatteryBanks banks = new BatteryBanks(
+        BatteryBank banks = new BatteryBank(
                 lines.stream().map(BankParser::parse).toList()
         );
 
@@ -43,7 +43,7 @@ public class Day03ATest {
                         "234234234234278\n" +
                         "818181911112111";
 
-        BatteryBanks banks = new BatteryBanks(
+        BatteryBank banks = new BatteryBank(
                 Arrays.stream(fakeLoader.read().split("\n"))
                         .map(BankParser::parse)
                         .toList()
@@ -54,10 +54,10 @@ public class Day03ATest {
 
     @Test
     public void given_empty_bank_should_return_zero() {
-        BatteryBank bank = BankParser.parse("");
+        BatteryCells bank = BankParser.parse("");
         assertThat(bank.maxJoltage(2)).isEqualTo(0);
 
-        BatteryBanks banks = new BatteryBanks(List.of(bank));
+        BatteryBank banks = new BatteryBank(List.of(bank));
         assertThat(banks.totalMaxJoltage()).isEqualTo(0);
     }
 }

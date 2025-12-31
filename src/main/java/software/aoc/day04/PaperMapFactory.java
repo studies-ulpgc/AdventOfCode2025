@@ -6,7 +6,10 @@ import java.util.List;
 public final class PaperMapFactory {
 
     public static PaperMap fromLoader(OrdersLoader loader) {
-        List<String> grid = loader.read().lines().toList();
-        return new PaperMap(grid);
+        return new PaperMap(getGrid(loader));
+    }
+
+    private static List<String> getGrid(OrdersLoader loader) {
+        return loader.read().lines().toList();
     }
 }

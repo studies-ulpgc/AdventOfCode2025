@@ -15,22 +15,25 @@ public final class FreshRangeCalculator {
     }
 
     public long countFreshIDs() {
-        List<IngredientRange> sorted = db.ranges().stream()
+        return getCount(getSorted(), Long.MIN_VALUE, 0);
+    }
+
+    private List<IngredientRange> getSorted() {
+        return db.ranges().stream()
                 .sorted(Comparator.comparingLong(IngredientRange::start))
                 .toList();
+    }
 
-        long count = 0;
-        long currentEnd = Long.MIN_VALUE;
-
+    private static long getCount(List<IngredientRange> sorted, long currentEnd, long count) {
         for (IngredientRange r : sorted) {
-            long s = Math.max(r.start(), currentEnd + 1);
-            long e = r.end();
-            if (s <= e) {
-                count += e - s + 1;
-                currentEnd = e;
-            }
+            if (getMax(currentEnd, r) > r.end()) continue;
+            count += r.end() - getMax(currentEnd, r) + 1;
+            currentEnd = r.end();
         }
-
         return count;
+    }
+
+    private static long getMax(long currentEnd, IngredientRange r) {
+        return Math.max(r.start(), currentEnd + 1);
     }
 }

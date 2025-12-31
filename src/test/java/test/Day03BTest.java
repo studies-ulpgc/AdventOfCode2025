@@ -1,8 +1,8 @@
 package test;
 
 import org.junit.Test;
+import software.aoc.day03.BatteryCells;
 import software.aoc.day03.BatteryBank;
-import software.aoc.day03.BatteryBanks;
 
 import java.util.List;
 
@@ -19,9 +19,9 @@ public class Day03BTest {
                 "818181911112111"
         );
 
-        BatteryBanks banks = new BatteryBanks(
+        BatteryBank banks = new BatteryBank(
                 lines.stream()
-                        .map(line -> new BatteryBank(line.chars().map(Character::getNumericValue).boxed().toList()))
+                        .map(line -> new BatteryCells(line.chars().map(Character::getNumericValue).boxed().toList()))
                         .toList()
         );
 

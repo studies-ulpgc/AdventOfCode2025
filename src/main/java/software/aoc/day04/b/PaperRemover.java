@@ -21,17 +21,21 @@ public final class PaperRemover {
     public static RemovalResult remove(PaperMap map, boolean[][] accessible) {
         List<String> newGrid = new ArrayList<>(map.grid());
 
-        long removed = IntStream.range(0, map.rows())
+        return new RemovalResult(new PaperMap(newGrid), getRemoved(map, accessible, newGrid));
+    }
+
+    private static long getRemoved(PaperMap map, boolean[][] accessible, List<String> newGrid) {
+        return IntStream.range(0, map.rows())
                 .mapToLong(r -> IntStream.range(0, map.cols())
                         .filter(c -> accessible[r][c])
-                        .map(c -> {
-                            StringBuilder sb = new StringBuilder(newGrid.get(r));
-                            sb.setCharAt(c, '.');
-                            newGrid.set(r, sb.toString());
-                            return 1;
-                        }).sum()
+                        .map(c -> extracted(newGrid, r, c)).sum()
                 ).sum();
+    }
 
-        return new RemovalResult(new PaperMap(newGrid), removed);
+    private static int extracted(List<String> newGrid, int r, int c) {
+        StringBuilder sb = new StringBuilder(newGrid.get(r));
+        sb.setCharAt(c, '.');
+        newGrid.set(r, sb.toString());
+        return 1;
     }
 }

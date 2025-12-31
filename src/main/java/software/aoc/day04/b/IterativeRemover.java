@@ -12,16 +12,21 @@ public final class IterativeRemover {
     }
 
     public long totalRemoved() {
-        PaperMap map = initialMap;
-        long total = 0;
+        return getTotal(initialMap, 0);
+    }
+
+    private static long getTotal(PaperMap map, long total) {
         long removed;
         do {
-            boolean[][] accessible = new ForkliftAccess(map).accessibleMap();
-            PaperRemover.RemovalResult result = PaperRemover.remove(map, accessible);
+            PaperRemover.RemovalResult result = PaperRemover.remove(map, getAccessible(map));
             map = result.newMap;
             removed = result.removed;
             total += removed;
         } while (removed > 0);
         return total;
+    }
+
+    private static boolean[][] getAccessible(PaperMap map) {
+        return new ForkliftAccess(map).accessibleMap();
     }
 }

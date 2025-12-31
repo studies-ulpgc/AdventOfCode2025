@@ -4,8 +4,8 @@ import java.util.List;
 
 public final class BankParser {
 
-    public static BatteryBank parse(String line) {
-        return new BatteryBank(digitsOf(line));
+    public static BatteryCells parse(String line) {
+        return new BatteryCells(digitsOf(line));
     }
 
     private static List<Integer> digitsOf(String line) {
