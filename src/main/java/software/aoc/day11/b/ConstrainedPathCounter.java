@@ -15,20 +15,27 @@ public final class ConstrainedPathCounter {
     }
 
     public long count(String node, String target, VisitState state) {
-        String key = node + "|" + state.seenDac() + "|" + state.seenFft();
-        if (memo.containsKey(key)) return memo.get(key);
-
-        VisitState newState = state.visit(node);
+        if (memo.containsKey(getKey(node, state))) return memo.get(getKey(node, state));
 
         if (node.equals(target)) {
-            return newState.isValidAtEnd() ? 1 : 0;
+            return getState(node, state).isValidAtEnd() ? 1 : 0;
         }
 
-        long total = graph.next(node).stream()
-                .mapToLong(next -> count(next, target, newState))
-                .sum();
+        memo.put(getKey(node, state), getTotal(node, target, state));
+        return getTotal(node, target, state);
+    }
 
-        memo.put(key, total);
-        return total;
+    private long getTotal(String node, String target, VisitState state) {
+        return graph.next(node).stream()
+                .mapToLong(next -> count(next, target, getState(node, state)))
+                .sum();
+    }
+
+    private static VisitState getState(String node, VisitState state) {
+        return state.visit(node);
+    }
+
+    private static String getKey(String node, VisitState state) {
+        return node + "|" + state.seenDac() + "|" + state.seenFft();
     }
 }

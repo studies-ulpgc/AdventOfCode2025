@@ -1,5 +1,8 @@
 package software.aoc.day07.a;
 
+import software.aoc.day07.Manifold;
+import software.aoc.day07.Position;
+
 import java.util.HashSet;
 import java.util.Set;
 

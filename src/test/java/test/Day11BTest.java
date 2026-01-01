@@ -1,16 +1,10 @@
 package test;
 
 import org.junit.Test;
-import software.aoc.day11.b.Day11BSolver;
 import software.aoc.day11.b.ConstrainedPathCounter;
 import software.aoc.day11.b.VisitState;
 import software.aoc.day11.a.DirectedGraph;
 import software.aoc.day11.a.GraphParser;
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

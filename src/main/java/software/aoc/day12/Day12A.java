@@ -13,15 +13,25 @@ public class Day12A {
     public static void main(String[] args) throws IOException {
         String day = "12";
 
-        OrdersLoader loader = FileOrdersLoader.from(
+        System.out.println(getResult(day));
+    }
+
+    private static long getResult(String day) throws IOException {
+        return getWorksheet(day).total();
+    }
+
+    private static Worksheet getWorksheet(String day) throws IOException {
+        return WorksheetParserFactory.createWorksheet()
+                .parse(getLines(day));
+    }
+
+    private static List<String> getLines(String day) throws IOException {
+        return Arrays.asList(getLoader(day).read().split("\\R"));
+    }
+
+    private static OrdersLoader getLoader(String day) throws IOException {
+        return FileOrdersLoader.from(
                 Files.newInputStream(Path.of("src/test/resources/day" + day + "/orders.txt"))
         );
-
-        List<String> lines = Arrays.asList(loader.read().split("\\R"));
-
-        var worksheet = WorksheetParserFactory.createWorksheet()
-                .parse(lines);
-
-        System.out.println(worksheet.total());
     }
 }

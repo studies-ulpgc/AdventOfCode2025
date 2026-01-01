@@ -1,5 +1,6 @@
 package software.aoc.day09.a;
 
+import software.aoc.day09.Point;
 import software.aoc.io.OrdersLoader;
 
 import java.util.List;

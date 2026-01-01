@@ -1,6 +1,6 @@
 package software.aoc.day09.b;
 
-import software.aoc.day09.a.Point;
+import software.aoc.day09.Point;
 
 import java.util.List;
 

@@ -1,5 +1,8 @@
 package software.aoc.day09.a;
 
+import software.aoc.day09.Point;
+import software.aoc.day09.Rectangle;
+
 public final class RectangleArea {
 
     private RectangleArea() {}

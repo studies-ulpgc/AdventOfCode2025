@@ -1,11 +1,11 @@
 package test;
 
 import org.junit.Test;
-import software.aoc.day09.a.LargestRectangleFinder;
+import software.aoc.day09.LargestRectangleFinder;
 import software.aoc.day09.b.LargestRectangleFinderPart2;
 import software.aoc.day09.b.Polygon;
 import software.aoc.day09.b.PolygonFactory;
-import software.aoc.day09.a.Point;
+import software.aoc.day09.Point;
 
 import java.util.List;
 

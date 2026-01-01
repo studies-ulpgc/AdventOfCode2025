@@ -19,25 +19,29 @@ public final class MachineFactory {
     }
 
     private static Machine parseLine(String line) {
-        boolean[] lights = parseLights(line);
-        List<Button> buttons = parseButtons(line);
-        int[] voltages = parseVoltages(line);
-
         return new Machine(
-                lights.length,
-                lights,
-                voltages,
-                buttons
+                parseLights(line).length,
+                parseLights(line),
+                parseVoltages(line),
+                parseButtons(line)
         );
     }
 
     private static boolean[] parseLights(String line) {
         Matcher m = LIGHTS.matcher(line);
         if (!m.find()) throw new IllegalArgumentException();
+        return getBooleans(getCharArray(m), getResult(m));
+    }
 
-        char[] chars = m.group(1).toCharArray();
-        boolean[] result = new boolean[chars.length];
+    private static boolean[] getResult(Matcher m) {
+        return new boolean[getCharArray(m).length];
+    }
 
+    private static char[] getCharArray(Matcher m) {
+        return m.group(1).toCharArray();
+    }
+
+    private static boolean[] getBooleans(char[] chars, boolean[] result) {
         for (int i = 0; i < chars.length; i++) {
             result[i] = chars[i] == '#';
         }
@@ -45,12 +49,12 @@ public final class MachineFactory {
     }
 
     private static List<Button> parseButtons(String line) {
-        Matcher m = BUTTON.matcher(line);
-        List<Button> buttons = new ArrayList<>();
+        return getButtons(BUTTON.matcher(line), new ArrayList<>());
+    }
 
+    private static List<Button> getButtons(Matcher m, List<Button> buttons) {
         while (m.find()) {
-            String content = m.group(1);
-            Set<Integer> indices = Arrays.stream(content.split(","))
+            Set<Integer> indices = Arrays.stream(m.group(1).split(","))
                     .filter(s -> !s.isBlank())
                     .map(Integer::parseInt)
                     .collect(Collectors.toSet());

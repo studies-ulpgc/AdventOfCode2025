@@ -9,6 +9,10 @@ public class UnionFind {
         this.parent = new int[n];
         this.size = new int[n];
         this.subgraphs = n;
+        union_find_definition(n);
+    }
+
+    private void union_find_definition(int n) {
         for (int i = 0; i < n; i++) {
             parent[i] = i;
             size[i] = 1;
@@ -24,9 +28,13 @@ public class UnionFind {
     }
 
     public boolean union(int a, int b) {
-        int pa = find(a), pb = find(b);
-        if (pa == pb) return false;
+        if (find(a) == find(b)) return false;
         subgraphs--;
+        calculate_union(find(a), find(b));
+        return true;
+    }
+
+    private void calculate_union(int pa, int pb) {
         if (size[pa] < size[pb]) {
             parent[pa] = pb;
             size[pb] += size[pa];
@@ -34,7 +42,6 @@ public class UnionFind {
             parent[pb] = pa;
             size[pa] += size[pb];
         }
-        return true;
     }
 
     public int[] sizes() {

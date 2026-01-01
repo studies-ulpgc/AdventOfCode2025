@@ -3,7 +3,7 @@ package test;
 import org.junit.Test;
 import software.aoc.day01.Order;
 import software.aoc.day01.OrdersParser;
-import software.aoc.day01.b.Dial2;
+import software.aoc.day01.Dial;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class Day01BTest {
     public void given_orders_should_count_zeros_during_rotations() {
         List<Order> orders = OrdersParser.parse(ORDERS);
 
-        Dial2 result = Dial2.create().execute(orders);
+        Dial result = Dial.create().execute_any_click(orders);
 
         assertThat(result.position()).isEqualTo(32);
         assertThat(result.count()).isEqualTo(6);
@@ -42,7 +42,7 @@ public class Day01BTest {
                 new Order(50)
         );
 
-        Dial2 result = Dial2.create().execute(orders);
+        Dial result = Dial.create().execute_any_click(orders);
 
         assertThat(result.position()).isEqualTo(0);
         assertThat(result.count()).isEqualTo(1);
@@ -52,7 +52,7 @@ public class Day01BTest {
     public void given_large_rotation_should_count_multiple_zeros() {
         List<Order> orders = List.of(new Order(1000));
 
-        Dial2 result = Dial2.create().execute(orders);
+        Dial result = Dial.create().execute_any_click(orders);
 
         assertThat(result.position()).isEqualTo(50);
         assertThat(result.count()).isEqualTo(10);

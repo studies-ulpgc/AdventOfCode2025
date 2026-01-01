@@ -1,4 +1,5 @@
-package software.aoc.day09.a;
+package software.aoc.day09;
+
 import java.util.List;
 
 public interface LargestRectangleFinder {

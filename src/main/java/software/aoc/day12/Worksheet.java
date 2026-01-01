@@ -20,32 +20,40 @@ public class Worksheet {
     }
 
     private boolean fits(Region region) {
-        // 1. Filtro rápido de área (tu lógica actual)
-        int totalNeeded = 0;
-        List<Shape> piecesToPlace = new ArrayList<>();
-        for (int i = 0; i < shapes.size(); i++) {
-            int qty = region.quantities().get(i);
-            totalNeeded += qty * shapes.get(i).area();
-            for (int j = 0; j < qty; j++) piecesToPlace.add(shapes.get(i));
-        }
-        if (totalNeeded > region.area()) return false;
+        if (getTotalNeeded(region, 0, new ArrayList<>()) > region.area()) return false;
+        return canPlaceAll(getBoard(region), new ArrayList<>(), 0);
+    }
 
-        // 2. Tablero de juego (false = vacío, true = ocupado)
-        boolean[][] board = new boolean[region.height()][region.width()];
-        return canPlaceAll(board, piecesToPlace, 0);
+    private static boolean[][] getBoard(Region region) {
+        return new boolean[region.height()][region.width()];
+    }
+
+    private int getTotalNeeded(Region region, int totalNeeded, List<Shape> piecesToPlace) {
+        for (int i = 0; i < shapes.size(); i++) {
+            totalNeeded += region.quantities().get(i) * shapes.get(i).area();
+            adding_pieces(piecesToPlace, region.quantities().get(i), i);
+        }
+        return totalNeeded;
+    }
+
+    private void adding_pieces(List<Shape> piecesToPlace, int qty, int i) {
+        for (int j = 0; j < qty; j++) isAdd(piecesToPlace, i);
+    }
+
+    private boolean isAdd(List<Shape> piecesToPlace, int i) {
+        return piecesToPlace.add(shapes.get(i));
     }
 
     private boolean canPlaceAll(boolean[][] board, List<Shape> pieces, int index) {
         if (index == pieces.size()) return true;
 
-        Shape piece = pieces.get(index);
-        for (Shape variant : piece.getAllVariants()) {
+        for (Shape variant : pieces.get(index).getAllVariants()) {
             for (int r = 0; r <= board.length - variant.getHeight(); r++) {
                 for (int c = 0; c <= board[0].length - variant.getWidth(); c++) {
                     if (isPossible(board, variant, r, c)) {
-                        place(board, variant, r, c, true); // Ocupar
+                        place(board, variant, r, c, true);
                         if (canPlaceAll(board, pieces, index + 1)) return true;
-                        place(board, variant, r, c, false); // Liberar (Backtrack)
+                        place(board, variant, r, c, false);
                     }
                 }
             }
@@ -57,7 +65,7 @@ public class Worksheet {
         for (int r = 0; r < s.getHeight(); r++) {
             for (int c = 0; c < s.getWidth(); c++) {
                 if (s.getAt(r, c) == '#' && board[row + r][col + c]) {
-                    return false; // Colisión detectada
+                    return false;
                 }
             }
         }

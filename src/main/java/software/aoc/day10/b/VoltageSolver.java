@@ -7,7 +7,10 @@ import java.util.*;
 public final class VoltageSolver {
 
     public long solveAll(List<Machine> machines) {
-        long total = 0;
+        return getTotal(machines, 0);
+    }
+
+    private long getTotal(List<Machine> machines, long total) {
         for (Machine m : machines) {
             total += solveMachine(m);
         }
@@ -15,50 +18,63 @@ public final class VoltageSolver {
     }
 
     private long solveMachine(Machine machine) {
-        int nCounters = machine.targetVoltages().length;
-        List<Button> buttons = machine.buttons();
+        return findMinFlips(getTarget(machine, new ArrayList<>()),
+                getAllParityMaps(getCounters(machine), machine.buttons()), new HashMap<>());
+    }
 
-        // Generamos todos los mapas de paridad posibles (2^n_botones)
-        // Esto mapea una configuración de paridad (0s y 1s) al mínimo de pulsaciones para lograrla
-        Map<List<Integer>, Map<List<Integer>, Integer>> parityMaps = getAllParityMaps(nCounters, buttons);
+    private static int getCounters(Machine machine) {
+        return machine.targetVoltages().length;
+    }
 
-        // Cache para memorización: Estado (lista de voltajes actuales) -> Mínimo de pulsaciones
-        Map<List<Integer>, Long> cache = new HashMap<>();
-
-        List<Integer> target = new ArrayList<>();
+    private static List<Integer> getTarget(Machine machine, List<Integer> target) {
         for (int v : machine.targetVoltages()) target.add(v);
-
-        return findMinFlips(target, parityMaps, cache);
+        return target;
     }
 
     private Map<List<Integer>, Map<List<Integer>, Integer>> getAllParityMaps(int nCounters, List<Button> buttons) {
-        Map<List<Integer>, Map<List<Integer>, Integer>> parityMaps = new HashMap<>();
-        int nButtons = buttons.size();
+        return getMap(nCounters, buttons, buttons.size(), new HashMap<>());
+    }
 
-        // Probamos todas las combinaciones de pulsar cada botón 0 o 1 vez
+    private static Map<List<Integer>, Map<List<Integer>, Integer>> getMap(int nCounters, List<Button> buttons, int nButtons, Map<List<Integer>, Map<List<Integer>, Integer>> parityMaps) {
         for (int i = 0; i < (1 << nButtons); i++) {
-            List<Integer> result = new ArrayList<>(Collections.nCopies(nCounters, 0));
-            int setBits = 0;
-            for (int j = 0; j < nButtons; j++) {
-                if ((i & (1 << j)) != 0) {
-                    setBits++;
-                    for (int counterIdx : buttons.get(j).affects()) {
-                        result.set(counterIdx, result.get(counterIdx) + 1);
-                    }
-                }
-            }
-
-            List<Integer> parity = new ArrayList<>();
-            for (int val : result) parity.add(val % 2);
-
-            parityMaps.putIfAbsent(parity, new HashMap<>());
-            Map<List<Integer>, Integer> internal = parityMaps.get(parity);
-
-            if (!internal.containsKey(result) || internal.get(result) > setBits) {
-                internal.put(result, setBits);
-            }
+            getParity(buttons, nButtons, parityMaps, i, getResult(nCounters));
         }
         return parityMaps;
+    }
+
+    private static void getParity(List<Button> buttons, int nButtons,
+                                  Map<List<Integer>, Map<List<Integer>, Integer>> parityMaps, int i, List<Integer> result) {
+        int setBits = getSetBits(buttons, nButtons, i, 0, result);
+
+        List<Integer> parity = getIntegers(result, new ArrayList<>());
+
+        parityMaps.putIfAbsent(parity, new HashMap<>());
+        Map<List<Integer>, Integer> internal = parityMaps.get(parity);
+
+        if (!internal.containsKey(result) || internal.get(result) > setBits) {
+            internal.put(result, setBits);
+        }
+    }
+
+    private static ArrayList<Integer> getResult(int nCounters) {
+        return new ArrayList<>(Collections.nCopies(nCounters, 0));
+    }
+
+    private static int getSetBits(List<Button> buttons, int nButtons, int i, int setBits, List<Integer> result) {
+        for (int j = 0; j < nButtons; j++) {
+            if ((i & (1 << j)) != 0) {
+                setBits = getSetBits(buttons, setBits, j, result);
+            }
+        }
+        return setBits;
+    }
+
+    private static int getSetBits(List<Button> buttons, int setBits, int j, List<Integer> result) {
+        setBits++;
+        for (int counterIdx : buttons.get(j).affects()) {
+            result.set(counterIdx, result.get(counterIdx) + 1);
+        }
+        return setBits;
     }
 
     private long findMinFlips(List<Integer> current,
@@ -66,52 +82,74 @@ public final class VoltageSolver {
                               Map<List<Integer>, Long> cache) {
 
         if (cache.containsKey(current)) return cache.get(current);
+        if (isZero(current, true)) return 0;
+        if (getMaxValue(current) != null) return getMaxValue(current);
+        if (!parityMaps.containsKey(getIntegers(current, new ArrayList<>()))) return Long.MAX_VALUE;
 
-        // Caso base: todos los contadores en cero
-        boolean allZero = true;
+        return getFlips(current, parityMaps, cache, Long.MAX_VALUE);
+    }
+
+    private long getFlips(List<Integer> current, Map<List<Integer>, Map<List<Integer>, Integer>> parityMaps, Map<List<Integer>, Long> cache, long minFlips) {
+        minFlips = getMinFlips(current, parityMaps, cache, minFlips);
+        cache.put(current, minFlips);
+        return minFlips;
+    }
+
+    private long getMinFlips(List<Integer> current, Map<List<Integer>, Map<List<Integer>, Integer>> parityMaps, Map<List<Integer>, Long> cache, long minFlips) {
+        return getMinFlips(current, parityMaps, cache, getIntegers(current, new ArrayList<>()), minFlips);
+    }
+
+    private static List<Integer> getIntegers(List<Integer> current, List<Integer> currentParity) {
+        for (int v : current) currentParity.add(v % 2);
+        return currentParity;
+    }
+
+    private static Long getMaxValue(List<Integer> current) {
+        for (int v : current) if (v < 0) return Long.MAX_VALUE;
+        return null;
+    }
+
+    private static boolean isZero(List<Integer> current, boolean allZero) {
         for (int v : current) {
             if (v != 0) { allZero = false; break; }
         }
-        if (allZero) return 0;
+        return allZero;
+    }
 
-        // Si algún contador es negativo, es inválido
-        for (int v : current) if (v < 0) return Long.MAX_VALUE;
-
-        // Paridad actual
-        List<Integer> currentParity = new ArrayList<>();
-        for (int v : current) currentParity.add(v % 2);
-
-        if (!parityMaps.containsKey(currentParity)) return Long.MAX_VALUE;
-
-        long minFlips = Long.MAX_VALUE;
-
+    private long getMinFlips(List<Integer> current, Map<List<Integer>, Map<List<Integer>, Integer>> parityMaps, Map<List<Integer>, Long> cache, List<Integer> currentParity, long minFlips) {
         for (Map.Entry<List<Integer>, Integer> entry : parityMaps.get(currentParity).entrySet()) {
-            List<Integer> pattern = entry.getKey();
-            int nFlips = entry.getValue();
+            if (!isValid(current, getPattern(entry), true)) continue;
 
-            // Verificar si el patrón cabe en el objetivo actual
-            boolean valid = true;
-            for (int i = 0; i < pattern.size(); i++) {
-                if (pattern.get(i) > current.get(i)) {
-                    valid = false;
-                    break;
-                }
-            }
-            if (!valid) continue;
-
-            // Siguiente estado: (actual - patrón) / 2
-            List<Integer> next = new ArrayList<>();
-            for (int i = 0; i < current.size(); i++) {
-                next.add((current.get(i) - pattern.get(i)) / 2);
-            }
-
-            long res = findMinFlips(next, parityMaps, cache);
-            if (res != Long.MAX_VALUE) {
-                minFlips = Math.min(minFlips, nFlips + 2 * res);
+            if (findMinFlips(add_next(current, new ArrayList<>(), getPattern(entry)), parityMaps, cache) != Long.MAX_VALUE) {
+                minFlips = Math.min(minFlips, getFlips(entry) + 2 * findMinFlips(add_next(current,
+                        new ArrayList<>(), getPattern(entry)), parityMaps, cache));
             }
         }
-
-        cache.put(current, minFlips);
         return minFlips;
+    }
+
+    private static List<Integer> getPattern(Map.Entry<List<Integer>, Integer> entry) {
+        return entry.getKey();
+    }
+
+    private static Integer getFlips(Map.Entry<List<Integer>, Integer> entry) {
+        return entry.getValue();
+    }
+
+    private static List<Integer> add_next(List<Integer> current, List<Integer> next, List<Integer> pattern) {
+        for (int i = 0; i < current.size(); i++) {
+            next.add((current.get(i) - pattern.get(i)) / 2);
+        }
+        return next;
+    }
+
+    private static boolean isValid(List<Integer> current, List<Integer> pattern, boolean valid) {
+        for (int i = 0; i < pattern.size(); i++) {
+            if (pattern.get(i) > current.get(i)) {
+                valid = false;
+                break;
+            }
+        }
+        return valid;
     }
 }

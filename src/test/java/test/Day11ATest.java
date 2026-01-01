@@ -1,14 +1,8 @@
 package test;
 
 import org.junit.Test;
-import software.aoc.day11.a.Day11;
 import software.aoc.day11.a.DirectedGraph;
 import software.aoc.day11.a.GraphParser;
-import software.aoc.io.OrdersLoader;
-import software.aoc.io.FileOrdersLoader;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

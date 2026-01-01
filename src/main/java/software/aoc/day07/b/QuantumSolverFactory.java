@@ -1,6 +1,6 @@
 package software.aoc.day07.b;
 
-import software.aoc.day07.a.Manifold;
+import software.aoc.day07.Manifold;
 
 public final class QuantumSolverFactory {
 
