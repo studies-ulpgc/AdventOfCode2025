@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-public class Day12A {
+public class Day12 {
     public static void main(String[] args) throws IOException {
         String day = "12";
 

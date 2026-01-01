@@ -3,7 +3,6 @@ package software.aoc.day02.b;
 import software.aoc.day02.GiftShopChecker;
 import software.aoc.day02.IDRange;
 import software.aoc.day02.GiftShopFactory;
-import software.aoc.day02.a.RepeatedTwiceRule;
 import software.aoc.io.FileOrdersLoader;
 import software.aoc.io.OrdersLoader;
 
