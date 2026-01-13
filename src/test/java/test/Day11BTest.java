@@ -2,9 +2,9 @@ package test;
 
 import org.junit.Test;
 import software.aoc.day11.b.ConstrainedPathCounter;
-import software.aoc.day11.b.VisitState;
-import software.aoc.day11.a.DirectedGraph;
-import software.aoc.day11.a.GraphParser;
+import software.aoc.day11.model.VisitState;
+import software.aoc.day11.model.DirectedGraph;
+import software.aoc.day11.model.GraphParser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

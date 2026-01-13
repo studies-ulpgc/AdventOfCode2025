@@ -1,18 +1,24 @@
 package software.aoc.day05.a;
 
-import software.aoc.day05.IngredientDatabase;
+import software.aoc.day05.model.IngredientDatabase;
+
+import java.util.function.Predicate;
 
 public final class FreshnessCalculator {
 
-    private final IngredientDatabase db;
+    private final IngredientDatabase ingredientDatabase;
 
-    public FreshnessCalculator(IngredientDatabase db) {
-        this.db = db;
+    public FreshnessCalculator(IngredientDatabase ingredientDatabase) {
+        this.ingredientDatabase = ingredientDatabase;
     }
 
     public long countFreshIngredients() {
-        return db.available().stream()
-                .filter(id -> db.ranges().stream().anyMatch(r -> r.contains(id)))
+        return ingredientDatabase.available().stream()
+                .filter(isIngredientFresh())
                 .count();
+    }
+
+    private Predicate<Long> isIngredientFresh() {
+        return id -> ingredientDatabase.ranges().stream().anyMatch(r -> r.contains(id));
     }
 }

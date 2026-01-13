@@ -1,7 +1,7 @@
 package software.aoc.day04.b;
 
-import software.aoc.day04.ForkliftAccess;
-import software.aoc.day04.PaperMap;
+import software.aoc.day04.model.ForkliftAccess;
+import software.aoc.day04.model.PaperMap;
 
 public final class IterativeRemover {
 
@@ -12,13 +12,13 @@ public final class IterativeRemover {
     }
 
     public long totalRemoved() {
-        return getTotal(initialMap, 0);
+        return removeAccessibleRollsUntilStable(initialMap, 0);
     }
 
-    private static long getTotal(PaperMap map, long total) {
+    private static long removeAccessibleRollsUntilStable(PaperMap map, long total) {
         long removed;
         do {
-            PaperRemover.RemovalResult result = PaperRemover.remove(map, getAccessible(map));
+            PaperRemover.RemovalResult result = PaperRemover.removeAccessiblePaperRolls(map, buildForkliftAccessibilityMatrix(map));
             map = result.newMap;
             removed = result.removed;
             total += removed;
@@ -26,7 +26,7 @@ public final class IterativeRemover {
         return total;
     }
 
-    private static boolean[][] getAccessible(PaperMap map) {
-        return new ForkliftAccess(map).accessibleMap();
+    private static boolean[][] buildForkliftAccessibilityMatrix(PaperMap map) {
+        return new ForkliftAccess(map).buildForkliftAccessibilityMatrix();
     }
 }

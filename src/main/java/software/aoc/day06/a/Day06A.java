@@ -2,8 +2,8 @@ package software.aoc.day06.a;
 
 import software.aoc.day06.model.Worksheet;
 import software.aoc.day06.parser.WorksheetParserFactory;
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
+import software.aoc.input.FileOrdersLoader;
+import software.aoc.input.OrdersLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,9 +11,7 @@ import java.nio.file.Path;
 
 public class Day06A {
     public static void main(String[] args) throws IOException {
-        String day = "06-a";
-
-        System.out.println(getWorksheet(day).total());
+        System.out.println(getWorksheet("06-a").total());
     }
 
     private static Worksheet getWorksheet(String day) throws IOException {

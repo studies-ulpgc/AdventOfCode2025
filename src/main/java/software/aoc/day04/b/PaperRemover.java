@@ -1,6 +1,6 @@
 package software.aoc.day04.b;
 
-import software.aoc.day04.PaperMap;
+import software.aoc.day04.model.PaperMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,21 +18,21 @@ public final class PaperRemover {
         }
     }
 
-    public static RemovalResult remove(PaperMap map, boolean[][] accessible) {
+    public static RemovalResult removeAccessiblePaperRolls(PaperMap map, boolean[][] accessible) {
         List<String> newGrid = new ArrayList<>(map.grid());
 
-        return new RemovalResult(new PaperMap(newGrid), getRemoved(map, accessible, newGrid));
+        return new RemovalResult(new PaperMap(newGrid), removeAccessibleRollsFromGrid(map, accessible, newGrid));
     }
 
-    private static long getRemoved(PaperMap map, boolean[][] accessible, List<String> newGrid) {
+    private static long removeAccessibleRollsFromGrid(PaperMap map, boolean[][] accessible, List<String> newGrid) {
         return IntStream.range(0, map.rows())
                 .mapToLong(r -> IntStream.range(0, map.cols())
                         .filter(c -> accessible[r][c])
-                        .map(c -> extracted(newGrid, r, c)).sum()
+                        .map(c -> removeRoll(newGrid, r, c)).sum()
                 ).sum();
     }
 
-    private static int extracted(List<String> newGrid, int r, int c) {
+    private static int removeRoll(List<String> newGrid, int r, int c) {
         StringBuilder sb = new StringBuilder(newGrid.get(r));
         sb.setCharAt(c, '.');
         newGrid.set(r, sb.toString());

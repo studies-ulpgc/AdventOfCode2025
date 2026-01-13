@@ -17,12 +17,6 @@ public class Day06BTest {
                     "*   +   *   +  ";
 
     @Test
-    public void given_example_should_parse_correctly() {
-        Worksheet ws = parser.parse(exampleInput);
-        assertThat(ws.problems()).hasSize(4);
-    }
-
-    @Test
     public void given_example_should_compute_total() {
         Worksheet ws = parser.parse(exampleInput);
         assertThat(ws.total()).isEqualTo(3263827L);
@@ -32,9 +26,9 @@ public class Day06BTest {
     public void individual_problems_should_have_correct_values() {
         Worksheet ws = parser.parse(exampleInput);
 
-        assertThat(ws.problems().get(0).solve()).isEqualTo(4 + 431 + 623);   // 1058
-        assertThat(ws.problems().get(1).solve()).isEqualTo(175 * 581 * 32); // 3253600
-        assertThat(ws.problems().get(2).solve()).isEqualTo(8 + 248 + 369); // 625
-        assertThat(ws.problems().get(3).solve()).isEqualTo(356 * 24 * 1);   // 8544
+        assertThat(ws.problems().get(0).solve()).isEqualTo(1058);
+        assertThat(ws.problems().get(1).solve()).isEqualTo(3253600);
+        assertThat(ws.problems().get(2).solve()).isEqualTo(625);
+        assertThat(ws.problems().get(3).solve()).isEqualTo(8544);
     }
 }

@@ -1,10 +1,10 @@
 package test;
 
 import org.junit.Test;
-import software.aoc.day08.CircuitBuilder;
-import software.aoc.day08.Point;
-import software.aoc.day08.PointFactory;
-import software.aoc.io.OrdersLoader;
+import software.aoc.day08.model.CircuitBuilder;
+import software.aoc.day08.model.Point;
+import software.aoc.day08.model.PointFactory;
+import software.aoc.input.OrdersLoader;
 
 import java.util.List;
 

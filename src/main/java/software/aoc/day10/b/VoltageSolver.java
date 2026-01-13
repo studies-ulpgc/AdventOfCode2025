@@ -1,24 +1,24 @@
 package software.aoc.day10.b;
 
-import software.aoc.day10.a.Machine;
-import software.aoc.day10.a.Button;
+import software.aoc.day10.model.Machine;
+import software.aoc.day10.model.Button;
 import java.util.*;
 
 public final class VoltageSolver {
 
-    public long solveAll(List<Machine> machines) {
+    public long totalMinimumFlips(List<Machine> machines) {
         return getTotal(machines, 0);
     }
 
     private long getTotal(List<Machine> machines, long total) {
         for (Machine m : machines) {
-            total += solveMachine(m);
+            total += minFlipsForMachine(m);
         }
         return total;
     }
 
-    private long solveMachine(Machine machine) {
-        return findMinFlips(getTarget(machine, new ArrayList<>()),
+    private long minFlipsForMachine(Machine machine) {
+        return findMinFlips(getTargetCounters(machine, new ArrayList<>()),
                 getAllParityMaps(getCounters(machine), machine.buttons()), new HashMap<>());
     }
 
@@ -26,7 +26,7 @@ public final class VoltageSolver {
         return machine.targetVoltages().length;
     }
 
-    private static List<Integer> getTarget(Machine machine, List<Integer> target) {
+    private static List<Integer> getTargetCounters(Machine machine, List<Integer> target) {
         for (int v : machine.targetVoltages()) target.add(v);
         return target;
     }
@@ -44,7 +44,7 @@ public final class VoltageSolver {
 
     private static void getParity(List<Button> buttons, int nButtons,
                                   Map<List<Integer>, Map<List<Integer>, Integer>> parityMaps, int i, List<Integer> result) {
-        int setBits = getSetBits(buttons, nButtons, i, 0, result);
+        int setBits = applyButtonMask(buttons, nButtons, i, 0, result);
 
         List<Integer> parity = getIntegers(result, new ArrayList<>());
 
@@ -60,16 +60,16 @@ public final class VoltageSolver {
         return new ArrayList<>(Collections.nCopies(nCounters, 0));
     }
 
-    private static int getSetBits(List<Button> buttons, int nButtons, int i, int setBits, List<Integer> result) {
+    private static int applyButtonMask(List<Button> buttons, int nButtons, int i, int setBits, List<Integer> result) {
         for (int j = 0; j < nButtons; j++) {
             if ((i & (1 << j)) != 0) {
-                setBits = getSetBits(buttons, setBits, j, result);
+                setBits = applyButtonMask(buttons, setBits, j, result);
             }
         }
         return setBits;
     }
 
-    private static int getSetBits(List<Button> buttons, int setBits, int j, List<Integer> result) {
+    private static int applyButtonMask(List<Button> buttons, int setBits, int j, List<Integer> result) {
         setBits++;
         for (int counterIdx : buttons.get(j).affects()) {
             result.set(counterIdx, result.get(counterIdx) + 1);
@@ -82,7 +82,7 @@ public final class VoltageSolver {
                               Map<List<Integer>, Long> cache) {
 
         if (cache.containsKey(current)) return cache.get(current);
-        if (isZero(current, true)) return 0;
+        if (allZero(current, true)) return 0;
         if (getMaxValue(current) != null) return getMaxValue(current);
         if (!parityMaps.containsKey(getIntegers(current, new ArrayList<>()))) return Long.MAX_VALUE;
 
@@ -109,7 +109,7 @@ public final class VoltageSolver {
         return null;
     }
 
-    private static boolean isZero(List<Integer> current, boolean allZero) {
+    private static boolean allZero(List<Integer> current, boolean allZero) {
         for (int v : current) {
             if (v != 0) { allZero = false; break; }
         }
@@ -118,10 +118,10 @@ public final class VoltageSolver {
 
     private long getMinFlips(List<Integer> current, Map<List<Integer>, Map<List<Integer>, Integer>> parityMaps, Map<List<Integer>, Long> cache, List<Integer> currentParity, long minFlips) {
         for (Map.Entry<List<Integer>, Integer> entry : parityMaps.get(currentParity).entrySet()) {
-            if (!isValid(current, getPattern(entry), true)) continue;
+            if (!patternFitsCurrent(current, getPattern(entry), true)) continue;
 
-            if (findMinFlips(add_next(current, new ArrayList<>(), getPattern(entry)), parityMaps, cache) != Long.MAX_VALUE) {
-                minFlips = Math.min(minFlips, getFlips(entry) + 2 * findMinFlips(add_next(current,
+            if (findMinFlips(subtractPatternHalf(current, new ArrayList<>(), getPattern(entry)), parityMaps, cache) != Long.MAX_VALUE) {
+                minFlips = Math.min(minFlips, getFlips(entry) + 2 * findMinFlips(subtractPatternHalf(current,
                         new ArrayList<>(), getPattern(entry)), parityMaps, cache));
             }
         }
@@ -136,14 +136,14 @@ public final class VoltageSolver {
         return entry.getValue();
     }
 
-    private static List<Integer> add_next(List<Integer> current, List<Integer> next, List<Integer> pattern) {
+    private static List<Integer> subtractPatternHalf(List<Integer> current, List<Integer> next, List<Integer> pattern) {
         for (int i = 0; i < current.size(); i++) {
             next.add((current.get(i) - pattern.get(i)) / 2);
         }
         return next;
     }
 
-    private static boolean isValid(List<Integer> current, List<Integer> pattern, boolean valid) {
+    private static boolean patternFitsCurrent(List<Integer> current, List<Integer> pattern, boolean valid) {
         for (int i = 0; i < pattern.size(); i++) {
             if (pattern.get(i) > current.get(i)) {
                 valid = false;

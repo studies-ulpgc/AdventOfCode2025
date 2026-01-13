@@ -1,17 +1,19 @@
 package software.aoc.day07.a;
 
-import software.aoc.day07.Manifold;
-import software.aoc.day07.Position;
+import software.aoc.day07.model.Beam;
+import software.aoc.day07.model.BeamMap;
+import software.aoc.day07.model.Position;
+import software.aoc.day07.model.SplitResult;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public final class TachyonSolver {
 
-    private final Manifold manifold;
+    private final BeamMap manifold;
     private final Set<Position> visited = new HashSet<>();
 
-    TachyonSolver(Manifold manifold) {
+    TachyonSolver(BeamMap manifold) {
         this.manifold = manifold;
     }
 

@@ -1,8 +1,9 @@
 package test;
 
 import org.junit.Test;
-import software.aoc.day11.a.DirectedGraph;
-import software.aoc.day11.a.GraphParser;
+import software.aoc.day11.model.DirectedGraph;
+import software.aoc.day11.model.GraphParser;
+import software.aoc.day11.model.PathCounter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,7 +11,6 @@ public class Day11ATest {
 
     @Test
     public void example_should_count_all_paths_from_you_to_out() throws Exception {
-        // Input de ejemplo del enunciado
         String input = """
                 aaa: you hhh
                 you: bbb ccc
@@ -25,7 +25,7 @@ public class Day11ATest {
                 """;
 
         DirectedGraph graph = GraphParser.parse(input);
-        long result = new software.aoc.day11.a.PathCounter(graph).countPaths("you", "out");
+        long result = new PathCounter(graph).countPaths("you", "out");
 
         assertThat(result).isEqualTo(5);
     }

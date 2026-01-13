@@ -1,10 +1,10 @@
 package software.aoc.day01.b;
 
-import software.aoc.day01.Dial;
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
-import software.aoc.day01.Order;
-import software.aoc.day01.OrdersParser;
+import software.aoc.day01.model.Dial;
+import software.aoc.input.FileOrdersLoader;
+import software.aoc.input.OrdersLoader;
+import software.aoc.day01.model.Order;
+import software.aoc.day01.model.OrdersParser;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,9 +14,7 @@ import java.util.List;
 public final class Day01B {
 
     public static void main(String[] args) throws IOException {
-        String day = "01-b";
-
-        System.out.println("Zeros during rotation: " + getResult(getLoader(day)).count());
+        System.out.println("Result: " + getResult(getLoader("01-b")).totalZeros());
     }
 
     private static OrdersLoader getLoader(String day) throws IOException {
@@ -27,7 +25,7 @@ public final class Day01B {
     }
 
     private static Dial getResult(OrdersLoader loader) {
-        return Dial.create().execute_any_click(getOrders(loader));
+        return Dial.create().processOrdersCountingAllIntermediateZeros(getOrders(loader));
     }
 
     private static List<Order> getOrders(OrdersLoader loader) {

@@ -1,7 +1,7 @@
 package test;
 
 import org.junit.Test;
-import software.aoc.day12.*;
+import software.aoc.day12.parser.WorksheetParserFactory;
 
 import java.util.List;
 import java.util.Arrays;

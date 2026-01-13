@@ -1,6 +1,0 @@
-package software.aoc.day10.a;
-
-import java.util.Set;
-
-public record Button(Set<Integer> affects) {
-}

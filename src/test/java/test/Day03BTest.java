@@ -1,8 +1,8 @@
 package test;
 
 import org.junit.Test;
-import software.aoc.day03.BatteryCells;
-import software.aoc.day03.BatteryBank;
+import software.aoc.day03.model.BatteryCells;
+import software.aoc.day03.model.BatteryBank;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class Day03BTest {
                         .toList()
         );
 
-        long result = banks.totalMaxJoltage(12);
-        assertThat(result).isEqualTo(3_121_910_778_619L);
+        long result = banks.calculateTotalMaximumJoltageSelectingDigits(12);
+        assertThat(result).isEqualTo(3121910778619L);
     }
 }

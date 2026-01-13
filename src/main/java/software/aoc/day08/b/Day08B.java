@@ -1,11 +1,11 @@
 package software.aoc.day08.b;
 
-import software.aoc.day08.CircuitBuilder;
-import software.aoc.day08.Edge;
-import software.aoc.day08.Point;
-import software.aoc.day08.PointFactory;
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
+import software.aoc.day08.model.CircuitBuilder;
+import software.aoc.day08.model.Edge;
+import software.aoc.day08.model.Point;
+import software.aoc.day08.model.PointFactory;
+import software.aoc.input.FileOrdersLoader;
+import software.aoc.input.OrdersLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,9 +14,7 @@ import java.util.List;
 
 public class Day08B {
     public static void main(String[] args) throws Exception {
-        String day = "08-b";
-
-        System.out.println("Result: " + getResult(day));
+        System.out.println("Result: " + getResult("08-b"));
     }
 
     private static long getResult(String day) throws IOException {

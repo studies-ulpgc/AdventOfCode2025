@@ -1,11 +1,11 @@
 package test;
 
 import org.junit.Test;
-import software.aoc.day04.ForkliftAccess;
-import software.aoc.day04.PaperMap;
-import software.aoc.day04.PaperMapFactory;
-import software.aoc.io.OrdersLoader;
-import software.aoc.io.FileOrdersLoader;
+import software.aoc.day04.model.ForkliftAccess;
+import software.aoc.day04.model.PaperMap;
+import software.aoc.day04.model.PaperMapFactory;
+import software.aoc.input.OrdersLoader;
+import software.aoc.input.FileOrdersLoader;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +32,7 @@ public class Day04ATest {
                 new ByteArrayInputStream(EXAMPLE_GRID.getBytes(StandardCharsets.UTF_8))
         );
 
-        PaperMap map = PaperMapFactory.fromLoader(loader);
+        PaperMap map = PaperMapFactory.createPaperMapFromLoader(loader);
         long accessible = new ForkliftAccess(map).accessibleRolls();
 
         assertThat(accessible).isEqualTo(13);

@@ -1,7 +1,7 @@
 package software.aoc.day07.b;
 
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
+import software.aoc.input.FileOrdersLoader;
+import software.aoc.input.OrdersLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,9 +10,7 @@ import java.nio.file.Path;
 public final class Day07B {
 
     public static void main(String[] args) throws Exception {
-        String day = "07-b";
-
-        System.out.println(getResult(day));
+        System.out.println(getResult("07-b"));
     }
 
     private static long getResult(String day) throws IOException {

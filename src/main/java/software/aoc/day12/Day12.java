@@ -1,7 +1,9 @@
 package software.aoc.day12;
 
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
+import software.aoc.day12.model.Worksheet;
+import software.aoc.day12.parser.WorksheetParserFactory;
+import software.aoc.input.FileOrdersLoader;
+import software.aoc.input.OrdersLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,9 +13,7 @@ import java.util.List;
 
 public class Day12 {
     public static void main(String[] args) throws IOException {
-        String day = "12";
-
-        System.out.println(getResult(day));
+        System.out.println(getResult("12"));
     }
 
     private static long getResult(String day) throws IOException {

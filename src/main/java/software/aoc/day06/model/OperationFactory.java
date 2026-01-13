@@ -4,7 +4,7 @@ public final class OperationFactory {
 
     private OperationFactory() {}
 
-    public static Operation from(char symbol) {
+    public static Operation fromSymbol(char symbol) {
         return switch (symbol) {
             case '+' -> new Addition();
             case '*' -> new Multiplication();

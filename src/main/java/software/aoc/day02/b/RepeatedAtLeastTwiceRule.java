@@ -1,6 +1,6 @@
 package software.aoc.day02.b;
 
-import software.aoc.day02.InvalidIDRule;
+import software.aoc.day02.model.InvalidIDRule;
 
 import java.util.regex.Pattern;
 

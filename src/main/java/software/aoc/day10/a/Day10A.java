@@ -1,7 +1,9 @@
 package software.aoc.day10.a;
 
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
+import software.aoc.day10.model.Machine;
+import software.aoc.day10.model.MachineLoader;
+import software.aoc.input.FileOrdersLoader;
+import software.aoc.input.OrdersLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,12 +13,12 @@ import java.util.List;
 public class Day10A {
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Day10 A: " + getResult());
+        System.out.println(getResult());
     }
 
     private static int getResult() throws IOException {
         return getMachines().stream()
-                .mapToInt(getLightSolver()::solve)
+                .mapToInt(getLightSolver()::minButtonPressesToTarget)
                 .sum();
     }
 
@@ -25,7 +27,7 @@ public class Day10A {
     }
 
     private static List<Machine> getMachines() throws IOException {
-        return MachineFactory.parse(getLoader().read());
+        return MachineLoader.parseMachinesFromText(getLoader().read());
     }
 
     private static OrdersLoader getLoader() throws IOException {

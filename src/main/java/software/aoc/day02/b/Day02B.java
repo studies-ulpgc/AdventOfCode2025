@@ -1,10 +1,10 @@
 package software.aoc.day02.b;
 
-import software.aoc.day02.GiftShopChecker;
-import software.aoc.day02.IDRange;
-import software.aoc.day02.GiftShopFactory;
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
+import software.aoc.day02.model.GiftShopChecker;
+import software.aoc.day02.model.IDRange;
+import software.aoc.day02.model.GiftShopFactory;
+import software.aoc.input.FileOrdersLoader;
+import software.aoc.input.OrdersLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,15 +14,7 @@ import java.util.List;
 public final class Day02B {
 
     public static void main(String[] args) throws IOException {
-        String day = "02-b";
-
-        OrdersLoader loader = FileOrdersLoader.from(
-                Files.newInputStream(
-                        Path.of("src/test/resources/day" + day + "/orders.txt")
-                )
-        );
-
-        System.out.println(getResult(getRanges(getLoader(day))));
+        System.out.println(getResult(parseIDRangesFromLoader(getLoader("02-b"))));
     }
 
     private static OrdersLoader getLoader(String day) throws IOException {
@@ -38,7 +30,7 @@ public final class Day02B {
                 .sumInvalidIDs(ranges);
     }
 
-    private static List<IDRange> getRanges(OrdersLoader loader) {
-        return GiftShopFactory.fromString(loader.read());
+    private static List<IDRange> parseIDRangesFromLoader(OrdersLoader loader) {
+        return GiftShopFactory.parseIDRangesFromString(loader.read());
     }
 }

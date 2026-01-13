@@ -56,7 +56,7 @@ public final class RightToLeftParser extends BaseParser
 
     private Problem problem(List<String> nums, String ops, int a, int b) {
         return new Problem(numbers(nums, a, b),
-                OperationFactory.from(ops.charAt(a)));
+                OperationFactory.fromSymbol(ops.charAt(a)));
     }
 
     private List<Long> numbers(List<String> rows, int a, int b) {

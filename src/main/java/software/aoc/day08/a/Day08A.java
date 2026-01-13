@@ -1,11 +1,11 @@
 package software.aoc.day08.a;
 
-import software.aoc.day08.CircuitBuilder;
-import software.aoc.day08.Edge;
-import software.aoc.day08.Point;
-import software.aoc.day08.PointFactory;
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
+import software.aoc.day08.model.CircuitBuilder;
+import software.aoc.day08.model.Edge;
+import software.aoc.day08.model.Point;
+import software.aoc.day08.model.PointFactory;
+import software.aoc.input.FileOrdersLoader;
+import software.aoc.input.OrdersLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,13 +14,11 @@ import java.util.List;
 
 public class Day08A {
     public static void main(String[] args) throws Exception {
-        String day = "08-a";
-
-        System.out.println("Result: " + getResult(getBuilder(), day));
+        System.out.println("Result: " + getResult(getBuilder(), "08-a"));
     }
 
     private static long getResult(CircuitBuilder builder, String day) throws IOException {
-        return builder.top3Product(getSizes(day));
+        return builder.calculateTop3ComponentProduct(getSizes(day));
     }
 
     private static int[] getSizes(String day) throws IOException {
@@ -28,7 +26,7 @@ public class Day08A {
     }
 
     private static List<Edge> getMst(String day) throws IOException {
-        return getBuilder().kruskal(getEdges(day), getPoints(day).size(), 1000);
+        return getBuilder().calculateMST(getEdges(day), getPoints(day).size(), 1000);
     }
 
     private static List<Edge> getEdges(String day) throws IOException {

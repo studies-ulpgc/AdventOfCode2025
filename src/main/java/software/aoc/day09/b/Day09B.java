@@ -1,9 +1,10 @@
 package software.aoc.day09.b;
 
-import software.aoc.day09.Point;
-import software.aoc.day09.a.PointParser;
-import software.aoc.io.FileOrdersLoader;
-import software.aoc.io.OrdersLoader;
+import software.aoc.day09.finder.PolygonConstrainedRectangleFinder;
+import software.aoc.day09.model.Point;
+import software.aoc.day09.model.PointParser;
+import software.aoc.input.FileOrdersLoader;
+import software.aoc.input.OrdersLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,11 +18,11 @@ public class Day09B {
     }
 
     private static long getResult() throws IOException {
-        return getFinder().find(getPoints());
+        return getFinder().findLargestRectangle(getPoints());
     }
 
-    private static LargestRectangleFinderPart2 getFinder() throws IOException {
-        return new LargestRectangleFinderPart2(getPolygon());
+    private static PolygonConstrainedRectangleFinder getFinder() throws IOException {
+        return new PolygonConstrainedRectangleFinder(getPolygon());
     }
 
     private static Polygon getPolygon() throws IOException {

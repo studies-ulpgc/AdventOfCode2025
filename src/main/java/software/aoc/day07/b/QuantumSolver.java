@@ -1,17 +1,17 @@
 package software.aoc.day07.b;
 
-import software.aoc.day07.Manifold;
-import software.aoc.day07.Position;
+import software.aoc.day07.model.BeamMap;
+import software.aoc.day07.model.Position;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public final class QuantumSolver {
 
-    private final Manifold manifold;
+    private final BeamMap manifold;
     private final Map<Position, Long> memo = new HashMap<>();
 
-    QuantumSolver(Manifold manifold) {
+    QuantumSolver(BeamMap manifold) {
         this.manifold = manifold;
     }
 
@@ -37,13 +37,5 @@ public final class QuantumSolver {
                 result = count(pos.down());
         }
         return result;
-    }
-
-
-    private long countFrom(Position pos) {
-        return switch (manifold.at(pos)) {
-            case '^' -> count(pos.left()) + count(pos.right());
-            default  -> count(pos.down());
-        };
     }
 }

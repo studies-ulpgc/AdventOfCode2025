@@ -1,10 +1,10 @@
 package test;
 
 import org.junit.Test;
-import software.aoc.day08.CircuitBuilder;
-import software.aoc.day08.Point;
-import software.aoc.day08.PointFactory;
-import software.aoc.io.OrdersLoader;
+import software.aoc.day08.model.CircuitBuilder;
+import software.aoc.day08.model.Point;
+import software.aoc.day08.model.PointFactory;
+import software.aoc.input.OrdersLoader;
 
 import java.util.List;
 
@@ -43,10 +43,10 @@ public class Day08ATest {
     public void given_example_should_compute_product_of_top_3_circuits() {
         List<Point> points = PointFactory.fromCSV(loader);
         var edges = builder.buildAllEdges(points);
-        var mst = builder.kruskal(edges, points.size(), 10);
+        var mst = builder.calculateMST(edges, points.size(), 10);
 
         int[] sizes = builder.componentSizes(points.size(), mst);
-        long result = builder.top3Product(sizes);
+        long result = builder.calculateTop3ComponentProduct(sizes);
 
         assertThat(result).isEqualTo(40);
     }

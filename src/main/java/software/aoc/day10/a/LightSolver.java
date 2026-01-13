@@ -1,8 +1,10 @@
 package software.aoc.day10.a;
 
+import software.aoc.day10.model.Machine;
+
 public final class LightSolver {
 
-    public int solve(Machine machine) {
+    public int minButtonPressesToTarget(Machine machine) {
         return getBest(machine, machine.buttons().size(), Integer.MAX_VALUE,
                 getTargetMask(machine, machine.size(), 0));
     }
