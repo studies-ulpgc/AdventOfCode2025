@@ -17,7 +17,7 @@ Este sistema busca calcular el área del rectángulo más grande formado por un 
 * **Single Responsibility (SRP)**:
   * `Polygon`: Se encarga exclusivamente de la lógica espacial (algoritmo de Ray-casting para saber si un punto está dentro).
   * `Rectangle`: Centraliza el cálculo de dimensiones y área.
-* **Composición sobre Herencia (COI)**: `PolygonConstrainedRectangleFinder` utiliza la composición para incluir un objeto `Polygon`, en lugar de heredar de una clase base compleja.
+* **Composición sobre Herencia (COI)**: `PolygonConstrainedRectangleFinder` utiliza la agregación para incluir un objeto `Polygon`, en lugar de heredar de una clase base compleja.
 
 ---
 
