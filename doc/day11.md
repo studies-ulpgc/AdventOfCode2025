@@ -16,7 +16,7 @@ Este sistema calcula el número de rutas posibles en un grafo dirigido. La evolu
 
 ### Principios de Diseño
 * **Single Responsibility (SRP)**: Cada clase tiene una razón única para cambiar. Si cambia el formato del archivo, solo toco el `GraphParser`.
-* **Inmutabilidad**: `VisitState` y `DirectedGraph` son inmutables. Cada movimiento genera un nuevo estado, evitando errores de concurrencia o de limpieza de rastro en la recursividad.
+* **Inmutabilidad**: `VisitState` y `DirectedGraph` son inmutables. Cada movimiento genera un nuevo estado, evitando errores de concurrencia o en la recursividad.
 * **Don't Repeat Yourself (DRY)**: Ambos solvers (A y B) reutilizan el mismo `GraphParser` y el objeto de dominio `DirectedGraph`.
 
 ---
