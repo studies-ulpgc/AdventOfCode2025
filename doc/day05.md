@@ -18,8 +18,6 @@ Este sistema gestiona inventarios de ingredientes basados en identificadores num
 ---
 
 ## 3. Patrones y Técnicas
-
-* **Algoritmo de Fusión de Intervalos (Interval Merging)**: Para la Parte B, en lugar de iterar por cada ID individualmente (lo cual sería ineficiente), el sistema ordena los rangos por su inicio y calcula la cobertura neta, manejando solapamientos.
 * **Static Factory Method**: `IngredientDatabaseFactory` proporciona un punto de entrada limpio para la creación del modelo de dominio desde un `OrdersLoader`.
 * **Programación Funcional (Java Streams)**:
     * **Filtrado Dinámico**: Uso de `Predicate` y `anyMatch` en `FreshnessCalculator` para validar ingredientes.
