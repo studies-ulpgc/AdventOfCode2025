@@ -18,13 +18,13 @@ Este sistema procesa "hojas de trabajo" (Worksheets) que contienen problemas mat
   * `Operation`: Define exclusivamente el contrato para cálculos matemáticos.
   * `Problem`: Se encarga de la lógica de resolución de un bloque de números y su operación.
 * **Dependency Inversion**: Las clases de alto nivel (`Day06A/B`) dependen de la abstracción `WorksheetParser`, no de las implementaciones concretas `LeftToRightParser` o `RightToLeftParser`.
+* **Don't Repeat Yourself - DRY**: Si no se usase la clase abstracta `BaseParser` habría que copiar y pegar tres métodos en`LeftToRightParser` y en `RightToLeftParser`.
 
 ---
 
 ## 3. Patrones y Técnicas
 
-* **Simple Factory Pattern**: `OperationFactory` encapsula la lógica de creación de operaciones basadas en símbolos (`+`, `*`), centralizando la gestión de errores para símbolos desconocidos.
-* **Static Factory Method**: `WorksheetParserFactory` proporciona métodos semánticos (`partA()`, `partB()`) para obtener la instancia correcta del parser, mejorando la legibilidad del cliente.
+* **Factory Method**: `WorksheetParserFactory` proporciona métodos semánticos (`partA()`, `partB()`) para obtener la instancia correcta del parser, mejorando la legibilidad del cliente.
 * **Programación Declarativa (Streams)**:
   * En `Addition` y `Multiplication`, se utilizan Streams para reducir colecciones de números a un único resultado de forma concisa.
   * En `Worksheet`, el cálculo del total se realiza mediante un flujo funcional sobre la lista de problemas.
