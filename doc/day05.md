@@ -13,8 +13,6 @@ Este sistema gestiona inventarios de ingredientes basados en identificadores num
     * `IngredientRange`: Único responsable de conocer sus límites y validar la inclusión de un ID.
     * `IngredientDatabaseFactory`: Centraliza la lógica de parsing del archivo de órdenes, aislando al resto del sistema del formato de entrada.
 * **Inmutabilidad con Records**: Se utilizan `record` para `IngredientDatabase` e `IngredientRange`, asegurando la integridad de los datos durante procesos de ordenamiento y filtrado masivo.
-
-### Principios de Diseñ
 * **Separación de Intereses (SoC)**: Se separa claramente la persistencia/carga de datos de la lógica algorítmica de resolución de intervalos.
 * **Encapsulamiento**: La lógica interna de cómo se fusionan los rangos en la Parte B queda oculta dentro de `FreshRangeCalculator`, exponiendo solo el resultado final.
 
