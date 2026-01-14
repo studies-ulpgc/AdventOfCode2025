@@ -13,7 +13,7 @@ Este sistema simula el comportamiento de un dial circular de 100 posiciones. El 
     * `Order`: Simple contenedor de datos para una instrucción.
     * `OrdersParser`: Centraliza la lógica de interpretación de comandos ('L' para negativo, 'R' para positivo).
     * `Dial`: Encapsula la aritmética modular necesaria para un sistema circular.
-* **Inyección de Comportamiento vía Streams**: El uso de `reduce` en Java Streams permite tratar la lista de órdenes como una transformación de estado continua, donde el "acumulador" es el propio objeto `Dial`.
+* **Functional Programming vía Streams**: El uso de `reduce` en Java Streams permite tratar la lista de órdenes como una transformación de estado continua, donde el "acumulador" es el propio objeto `Dial`.
 * **Encapsulamiento de Lógica Matemática**: Los detalles de cómo se calculan los cruces por cero están ocultos tras métodos expresivos como `applyAnyClick` y `applyLeftPointing`.
 
 ---
