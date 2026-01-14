@@ -22,9 +22,7 @@ Este sistema simula la retirada de rollos de papel en un almacén basándose en 
 ---
 
 ## 3. Patrones y Técnicas
-
-* **Simulación de Punto Fijo (Fixed-point Iteration)**: En la Parte B, `IterativeRemover` utiliza un bucle `do-while` que continúa ejecutándose mientras se sigan retirando rollos, una técnica fundamental para resolver sistemas donde las acciones tienen efectos en cadena.
-* **Procesamiento Paralelo Potencial (Streams)**:
+* **Functional Programming (Streams)**:
     * Se utilizan `IntStream` para recorrer la cuadrícula de forma declarativa, lo que facilita la legibilidad y permite una futura paralelización del cálculo de accesibilidad.
 * **Factory Method**: El uso de `createPaperMapFromLoader` centraliza la carga de datos, facilitando el intercambio de fuentes de datos (archivos, red, etc.).
 
