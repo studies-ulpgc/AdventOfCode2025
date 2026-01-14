@@ -8,7 +8,7 @@ Este sistema gestiona inventarios de ingredientes basados en identificadores num
 ## 2. Arquitectura y Principios de Diseño
 
 ### Fundamentos Aplicados
-* **Desacoplamiento de Lógica de Negocio**: La base de datos de ingredientes (`IngredientDatabase`) es puramente una estructura de datos, mientras que la lógica de cálculo se delega a servicios especializados como `FreshnessCalculator` y `FreshRangeCalculator`.
+* **Desacoplamiento**: La base de datos de ingredientes (`IngredientDatabase`) es puramente una estructura de datos, mientras que la lógica de cálculo se delega a servicios especializados como `FreshnessCalculator` y `FreshRangeCalculator`.
 * **Single Responsibility (SRP)**:
     * `IngredientRange`: Único responsable de conocer sus límites y validar la inclusión de un ID.
     * `IngredientDatabaseFactory`: Centraliza la lógica de parsing del archivo de órdenes, aislando al resto del sistema del formato de entrada.
