@@ -12,7 +12,7 @@ Este sistema simula el comportamiento de un dial circular de 100 posiciones. El 
 * **Single Responsibility (SRP)**:
     * `Order`: Simple contenedor de datos para una instrucción.
     * `OrdersParser`: Centraliza la lógica de interpretación de comandos ('L' para negativo, 'R' para positivo).
-    * `Dial`: Encapsula la aritmética modular necesaria para un sistema circular.
+    * `Dial`: Encapsula la aritmética necesaria para un sistema circular.
 * **Encapsulamiento**: Los detalles de cómo se calculan los cruces por cero están ocultos tras métodos expresivos como `applyAnyClick` y `applyLeftPointing`.
 
 ---
