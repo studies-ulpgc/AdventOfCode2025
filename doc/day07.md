@@ -23,7 +23,7 @@ Este sistema modela el flujo de partículas a través de un mapa ("manifold"). E
 * **Memoización (Programación Dinámica)**: En `QuantumSolver`, se utiliza un `Map<Position, Long> memo` para almacenar resultados de subproblemas ya resueltos. Esto reduce drásticamente la complejidad computacional de exponencial a lineal.
 * **Recursividad de Cola**: El sistema utiliza métodos recursivos para propagar el flujo, manteniendo un código declarativo y fácil de seguir.
 * **Estructuras de Datos Inmutables**: `SplitResult` utiliza un patrón de diseño que permite fusionar resultados (`merge`) de diferentes ramas de ejecución de forma segura.
-* **Pattern Matching**: Uso de sentencias `switch` modernas para determinar el comportamiento del flujo según el carácter del mapa (`^`, `default`), mejorando la legibilidad.
+* **Switch**: Uso de sentencias `switch` para determinar el comportamiento del flujo según el carácter del mapa (`^`, `default`), mejorando la legibilidad.
 
 ---
 
