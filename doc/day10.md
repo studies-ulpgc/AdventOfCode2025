@@ -14,7 +14,7 @@ Este sistema resuelve un problema de optimización combinatoria: encontrar la ca
 
 ### Principios de Diseño
 * **Single Responsibility (SRP)**:
-  * `MachineFactory`: Única responsable del parseo mediante expresiones regulares.
+  * `MachineLoader`: Única responsable del parseo mediante expresiones regulares.
   * `LightSolver`: Especializada en problemas de estados binarios (luces ON/OFF).
   * `VoltageSolver`: Especializada en estados acumulativos (voltaje).
 * **Inmutabilidad**: Uso de `Record` para `Button` y `Machine`, asegurando que los datos del problema no muten durante la ejecución del algoritmo.
