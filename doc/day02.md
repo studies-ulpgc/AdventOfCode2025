@@ -27,8 +27,7 @@ Este sistema gestiona la validación de identificadores (IDs) dentro de rangos e
 * **Procesamiento de Flujos (Streams & FlatMap)**:
     * `flatMapToLong`: Se utiliza para "aplanar" múltiples rangos en un único flujo continuo de IDs individuales.
     * `LongStream.rangeClosed`: Genera de forma eficiente la secuencia de números dentro de cada rango para su posterior filtrado.
-* **Data Transfer Objects (DTO)**: El uso de `record` para `IDRange` proporciona una estructura de datos inmutable y concisa, ideal para representar intervalos de entrada.
-* **Separación de Capas**: El código distingue claramente entre la carga de datos (`OrdersLoader`), la creación de modelos (`GiftShopFactory`) y el cálculo de resultados (`GiftShopChecker`).
+* **Separación de Clases**: El código distingue claramente entre la carga de datos (`OrdersLoader`), la creación de modelos (`GiftShopFactory`) y el cálculo de resultados (`GiftShopChecker`).
 
 ---
 
