@@ -27,8 +27,7 @@ Este sistema resuelve un problema de conectividad espacial y optimización de re
 * **Programación Funcional (Streams)**:
   * **Procesamiento de Datos**: En `calculateTop3ComponentProduct`, se utilizan Streams para ordenar, filtrar y reducir (multiply) los tamaños de los componentes de forma declarativa.
   * **Abstracción de Lógica**: Los Streams permiten expresar la intención ("dame el producto de los 3 más grandes") sin bucles anidados manuales.
-* **Estructuras de Datos Eficientes**: Uso de **Union-Find con Path Compression y Union by Size** para garantizar que las operaciones de conectividad tengan una complejidad casi constante.
-* **Algoritmos de Optimización**: Implementación personalizada de la lógica de Minimum Spanning Tree (MST) para construir la red mínima necesaria.
+* **Algoritmo**: Implementación de la lógica de Minimum Spanning Tree (MST) para construir la red mínima necesaria.
 
 ---
 
