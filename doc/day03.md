@@ -14,8 +14,6 @@ Este sistema calcula el "voltaje" (joltage) máximo de un banco de baterías pro
     * `BatteryCells`: Gestiona la lógica interna de optimización de una celda individual.
     * `BatteryBank`: Coordina los resultados de múltiples celdas para obtener el valor global.
 * **Records para el Dominio**: El uso de `record` para `BatteryBank` y `BatteryCells` garantiza que los datos de los sensores de las baterías sean inmutables una vez leídos.
-
-### Principios de Diseño
 * **Flexibilidad**: Aunque la Parte A pide seleccionar 2 dígitos, el método `calculateTotalMaximumJoltageSelectingDigits(int selectCount)` está diseñado para aceptar cualquier tamaño, facilitando la evolución del sistema.
 
 ---
