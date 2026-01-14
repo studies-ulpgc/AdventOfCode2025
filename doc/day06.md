@@ -28,7 +28,6 @@ Este sistema procesa "hojas de trabajo" (Worksheets) que contienen problemas mat
 * **Programación Declarativa (Streams)**:
   * En `Addition` y `Multiplication`, se utilizan Streams para reducir colecciones de números a un único resultado de forma concisa.
   * En `Worksheet`, el cálculo del total se realiza mediante un flujo funcional sobre la lista de problemas.
-* **Refactorización de Código Común**: El uso de `BaseParser` permite que las clases hijas se enfoquen únicamente en el algoritmo específico de su dirección, delegando el manejo de strings a la superclase.
 
 ---
 
