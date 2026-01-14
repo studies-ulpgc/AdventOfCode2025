@@ -17,12 +17,9 @@ Este sistema simula el comportamiento de un dial circular de 100 posiciones. El 
 
 ---
 
-## 3. Patrones y Técnicas Avanzadas
-
-* **Patrón State (Inmutable)**: El sistema funciona como una máquina de estados donde cada instrucción de entrada dispara una transición a un nuevo estado inmutable.
-* **Reducción de Flujos (Stream Reduction)**:
+## 3. Patrones y Técnicas
+* **Functional Programming (Stream)**:
     * El método `processOrdersCountingOnlyFinalZero` utiliza `.reduce(this, Dial::applyLeftPointing, ...)` para colapsar una lista de movimientos en un resultado único.
-* **Simulación de Trayectoria**: Para la Parte B, se implementó `countZeroHitsWhileMoving`, que discretiza el movimiento paso a paso para no perder ningún cruce por el punto de origen (posición 0).
 * **Static Factory Method**: `Dial.create()` proporciona un punto de inicio estandarizado (posición 50, contador 0).
 
 ---
