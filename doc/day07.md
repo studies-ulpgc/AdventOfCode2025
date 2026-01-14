@@ -9,7 +9,6 @@ Este sistema modela el flujo de partículas a través de un mapa ("manifold"). E
 
 ### Fundamentos Aplicados
 * **Separación de Responsabilidades (SRP)**: El dominio se divide en la estructura del mapa (`BeamMap`), el estado de la partícula (`Beam`) y la lógica de resolución (`Solvers`).
-* **Abstracción por Factorías**: El uso de `TachyonSolverFactory` y `QuantumSolverFactory` desacopla la instanciación de los solvers del resto de la aplicación, facilitando la configuración inicial del mapa.
 * **Inmutabilidad**: Los componentes clave (`Position`, `Beam`, `SplitResult`) están implementados como **Records**, garantizando que los estados intermedios no sufran efectos secundarios durante la recursión.
 
 ### Principios de Diseño
