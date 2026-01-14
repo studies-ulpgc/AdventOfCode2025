@@ -24,7 +24,7 @@ Este sistema calcula el "voltaje" (joltage) máximo de un banco de baterías pro
 
 * **Pila (Stack)**: Para encontrar la subsecuencia máxima, se utiliza una estrategia de pila donde se eliminan elementos menores conforme llegan dígitos mayores, siempre que el presupuesto de "descarte" (`drop`) lo permita.
 * **Algoritmo Greedy (Codicioso)**: El sistema toma la mejor decisión local en cada paso (mantener el dígito más alto posible a la izquierda) para asegurar el máximo valor global.
-* **Procesamiento de Flujos (Java Streams)**:
+* **Functional Programming (Java Streams)**:
     * Uso de `chars().map()` para una conversión eficiente de caracteres a valores numéricos en `BankParser`.
     * Uso de `mapToLong().sum()` en `BatteryBank` para procesar grandes volúmenes de datos de forma declarativa.
 * **Conversión de Base Numérica**: La lógica para reconstruir el número final (`result * 10 + d`) demuestra un manejo eficiente de acumuladores sin necesidad de manipular Strings costosos.
