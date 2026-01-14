@@ -24,7 +24,7 @@ Este sistema calcula el número de rutas posibles en un grafo dirigido. La evolu
 ## 3. Patrones y Técnicas
 
 * **Programación Funcional (Streams)**:
-  * **Abstracción de Recorrido**: En `countPaths`, se utiliza `.stream().mapToLong(...).sum()`. Esto permite ver el flujo de datos de forma declarativa, abstrayendo el control de flujo manual y reduciendo la complejidad ciclomática.
+  * **Abstracción de Recorrido**: En `countPaths`, se utiliza `.stream().mapToLong(...).sum()`.
   * **Parsing**: `GraphParser` utiliza `Collectors.toMap` y `Arrays.stream` para procesar la entrada en una sola expresión funcional.
 * **Memoización (Dynamic Programming)**: Se utiliza un `Map<String, Long>` como caché de resultados. Esto es para evitar cálculos redundantes en grafos con múltiples caminos.
 * **Encapsulamiento de Estado**: `VisitState` aplica el principio de **Tell, Don't Ask**. El contador le dice al estado que visite un nodo y luego le pregunta si ya lo ha visitado (`allRequiredNodesVisited`), sin conocer las reglas internas de qué nodos son obligatorios.
